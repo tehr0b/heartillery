@@ -17,7 +17,7 @@ public class Heart : MonoBehaviour {
 		RigidbodyConstraints.FreezeRotationY;
 
     const float TAP_TIMER = 0.4f;
-    const float BEAT_TIMER = 0.2f;
+    const float BEAT_TIMER = 0.6f;
 	
 	/// <summary>
 	/// The splatter prefab.

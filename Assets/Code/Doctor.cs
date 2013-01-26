@@ -4,13 +4,14 @@ using System.Collections;
 public class Doctor : MonoBehaviour {
 	
     int trackedTouchId = ArTouch.NULL_ID;
+	tk2dAnimatedSprite anim;
 	public Heart heart;
 	
 	
 	
 	public Camera camera;
 	
-	public float throwForce = 200f;
+	public float throwForce = 300f;
 	
 	bool hasThrown = false;
 	
@@ -27,12 +28,19 @@ public class Doctor : MonoBehaviour {
 	// Use this for initialization
 	void Start () 
 	{
+		anim = GetComponent<tk2dAnimatedSprite>();
 		camera = FindObjectOfType(typeof(Camera)) as Camera;
 	}
 	
 	// Update is called once per frame
 	void Update () 
 	{
+		if (!hasThrown)
+		{
+			anim.Play("Pretoss");
+		}else{
+			anim.Play("Aftertoss");
+		}
 		if (!hasThrown && ((Input.touchCount > 0)||(Input.GetMouseButtonDown(0)))){
 			hasThrown = true;
 			Vector3 point = new Vector3(
