@@ -8,7 +8,7 @@ public class Heart : MonoBehaviour {
 	//public bool isThrown = false;
     private bool canTap = false;
 	private bool canBeat = true;
-	public Vector3 beatSpeed = new Vector3(1,3,0);
+	public Vector3 beatSpeed = new Vector3(2,3,0);
 	
     private Rigidbody _heartRigidBody;
 
@@ -24,7 +24,7 @@ public class Heart : MonoBehaviour {
 		RigidbodyConstraints.FreezeRotationY;
 
     const float TAP_TIMER = 0.4f;
-    const float BEAT_TIMER = 0.6f;
+    const float BEAT_TIMER = 0.1f;
 
     private const string SPIKE_TAG = "Spike";
     private const string JUNK_TAG = "Slower";
@@ -33,7 +33,7 @@ public class Heart : MonoBehaviour {
 	/// The splatter prefab.
 	/// </summary>
 	public Rigidbody splatterPrefab;
-	public float splatForce = 20f;
+	public float splatForce = 5f;
 	
     void OnEnable()
     {
@@ -57,7 +57,6 @@ public class Heart : MonoBehaviour {
 		if (canBeat&&(isThrown && ((Input.touchCount > 0)||(Input.GetMouseButtonDown(0))))){
 			Beat();	
 		}
-		Splat();
 
 	}
 	
@@ -69,7 +68,7 @@ public class Heart : MonoBehaviour {
 	
 	void Beat()
 	{
-        rigidbody.velocity+=beatSpeed;
+		rigidbody.AddForce(beatSpeed.normalized * splatForce);
 	}
 
     IEnumerator TapTimer(float timeLeft){
@@ -105,13 +104,13 @@ public class Heart : MonoBehaviour {
 		if (canBeat)
 		{
         	rigidbody.velocity+=beatSpeed;
+			canBeat = false;
         	if (canTap)
         	{
            		 Debug.Log("Nice Timing!");
-           		 rigidbody.velocity *= 1.2f;
+				 rigidbody.AddForce(beatSpeed.normalized * splatForce);
+				 StartCoroutine(BeatTimer(BEAT_TIMER));
         	}
-			canBeat = false;
-			StartCoroutine(BeatTimer(BEAT_TIMER));
 		}
     }
 
@@ -120,6 +119,7 @@ public class Heart : MonoBehaviour {
         canTap = true;
         StartCoroutine(TapTimer(TAP_TIMER));
 		Splat();
+        canBeat = true;
     }
 
     void OnTriggerEnter(Collider other)
