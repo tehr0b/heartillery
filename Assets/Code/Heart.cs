@@ -5,7 +5,7 @@ using System.Collections;
 public class Heart : MonoBehaviour {
 
     int trackedTouchId = ArTouch.NULL_ID;
-	public bool isThrown = false;
+	//public bool isThrown = false;
     private bool canTap = false;
 	private bool canBeat = true;
 	public Vector3 beatSpeed = new Vector3(1,3,0);
@@ -13,6 +13,12 @@ public class Heart : MonoBehaviour {
     private Rigidbody _heartRigidBody;
 
     private bool _isThrown = false;
+
+    public bool isThrown
+    {
+        get { return _isThrown; }
+        private set { }
+    }
 	
 	private RigidbodyConstraints constraints = RigidbodyConstraints.FreezePositionZ | RigidbodyConstraints.FreezeRotationX |
 		RigidbodyConstraints.FreezeRotationY;
