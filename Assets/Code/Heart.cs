@@ -50,7 +50,6 @@ public class Heart : MonoBehaviour {
 	
 	void Beat()
 	{
-		
 	}
 
     IEnumerator TapTimer(float timeLeft){

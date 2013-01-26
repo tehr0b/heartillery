@@ -7,7 +7,7 @@ public class Doctor : MonoBehaviour {
 	
 	public Camera camera;
 	
-	public float throwForce = 10f;
+	public float throwForce = 15f;
 	
 	bool touchStarted = false;
 	
