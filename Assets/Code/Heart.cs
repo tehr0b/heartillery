@@ -9,6 +9,11 @@ public class Heart : MonoBehaviour {
 
     private Rigidbody _heartRigidBody;
 
+    private bool _isThrown = false;
+	
+	private RigidbodyConstraints constraints = RigidbodyConstraints.FreezePositionZ | RigidbodyConstraints.FreezeRotationX |
+		RigidbodyConstraints.FreezeRotationY;
+
     const float TAP_TIMER = 0.20f;
 
     void OnEnable()
@@ -24,6 +29,7 @@ public class Heart : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         _heartRigidBody = rigidbody;
+        _heartRigidBody.constraints = RigidbodyConstraints.FreezeAll;
 	}
 	
 	// Update is called once per frame
@@ -36,7 +42,14 @@ public class Heart : MonoBehaviour {
 
 	}
 	
-	void Beat(){
+	public void Throw()
+	{
+		_isThrown = true;
+		_heartRigidBody.constraints = constraints;
+	}
+	
+	void Beat()
+	{
 		
 	}
 
