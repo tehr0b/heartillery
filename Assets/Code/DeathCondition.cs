@@ -21,6 +21,10 @@ public class DeathCondition : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+        //Debug.Log("con1: " + heart.isThrown + ", con2: " +
+        //    (dcRigidbody.velocity.magnitude < deathTriggerVelocity) + ", con3: " +
+        //    (transform.position.y < deathTriggerHeight));
+
 	    if (heart.isThrown &&
             dcRigidbody.velocity.magnitude < deathTriggerVelocity &&
             transform.position.y < deathTriggerHeight)
