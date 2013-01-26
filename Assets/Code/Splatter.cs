@@ -13,7 +13,7 @@ public class Splatter : MonoBehaviour {
 	{
 		if (!(collision is Heart)){
 			Debug.Log("POW! Right in the kisser!");
-			Instantiate(splatPrefab);
+			Instantiate(splatPrefab, transform.position, Quaternion.identity);
 			Destroy(gameObject);
 		}
 	}
