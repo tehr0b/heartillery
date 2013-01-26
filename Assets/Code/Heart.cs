@@ -6,7 +6,9 @@ public class Heart : MonoBehaviour {
     int trackedTouchId = ArTouch.NULL_ID;
 	public bool isThrown = false;
     private bool canTap = false;
-
+	private bool canBeat = true;
+	public Vector3 beatSpeed = new Vector3(1,3,0);
+	
     private Rigidbody _heartRigidBody;
 
     private bool _isThrown = false;
@@ -14,7 +16,8 @@ public class Heart : MonoBehaviour {
 	private RigidbodyConstraints constraints = RigidbodyConstraints.FreezePositionZ | RigidbodyConstraints.FreezeRotationX |
 		RigidbodyConstraints.FreezeRotationY;
 
-    const float TAP_TIMER = 0.20f;
+    const float TAP_TIMER = 0.4f;
+    const float BEAT_TIMER = 0.2f;
 	
 	/// <summary>
 	/// The splatter prefab.
@@ -41,12 +44,9 @@ public class Heart : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         ArTouchInput.GetInstance().Update();	
-
-		if (isThrown && Input.touchCount > 0){
+		if (canBeat&&(isThrown && ((Input.touchCount > 0)||(Input.GetMouseButtonDown(0))))){
 			Beat();	
 		}
-		
-		Splat();
 
 	}
 	
@@ -58,11 +58,17 @@ public class Heart : MonoBehaviour {
 	
 	void Beat()
 	{
+        rigidbody.velocity+=beatSpeed;
 	}
 
     IEnumerator TapTimer(float timeLeft){
         yield return new WaitForSeconds(timeLeft);
         canTap = false;
+    }
+	
+	IEnumerator BeatTimer(float timeLeft){
+        yield return new WaitForSeconds(timeLeft);
+        canBeat = true;
     }
 
     // This logic starts coroutine on tap and if
@@ -80,23 +86,29 @@ public class Heart : MonoBehaviour {
         }
     }*/
 
-
     // Following part sets tapped bool on collison
     // with wall. If tap is registered within .2 seconds
     // of collision, amplify speed. This feels better to me.
     void TouchTap(ref ArTouch touch)
     {
-        if (canTap)
-        {
-            Debug.Log("Nice Timing!");
-            _heartRigidBody.velocity *= 1.5f;
-        }
+		if (canBeat)
+		{
+        	rigidbody.velocity+=beatSpeed;
+        	if (canTap)
+        	{
+           		 Debug.Log("Nice Timing!");
+           		 rigidbody.velocity *= 1.2f;
+        	}
+			canBeat = false;
+			StartCoroutine(BeatTimer(BEAT_TIMER));
+		}
     }
 
     void OnCollisionEnter(Collision collision)
     {
         canTap = true;
         StartCoroutine(TapTimer(TAP_TIMER));
+		Splat();
     }
 	
 	void Splat()
