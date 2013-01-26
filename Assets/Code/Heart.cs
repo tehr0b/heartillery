@@ -23,7 +23,7 @@ public class Heart : MonoBehaviour {
 
     void OnCollisionEnter(Collision collision)
     {
-        rigidbody.velocity *= 1.1f;
+        rigidbody.velocity *= 1.01f;
     }
 
 }
