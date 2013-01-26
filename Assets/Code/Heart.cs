@@ -20,4 +20,10 @@ public class Heart : MonoBehaviour {
 	void Beat(){
 		
 	}
+
+    void OnCollisionEnter(Collision collision)
+    {
+        rigidbody.velocity *= 1.1f;
+    }
+
 }
