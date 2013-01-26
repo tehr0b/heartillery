@@ -5,7 +5,7 @@ using System.Collections;
 public class Heart : MonoBehaviour {
 
     int trackedTouchId = ArTouch.NULL_ID;
-	public bool isThrown = false;
+	//public bool isThrown = false;
     private bool canTap = false;
 	private bool canBeat = true;
 	public Vector3 beatSpeed = new Vector3(2,3,0);
@@ -13,12 +13,21 @@ public class Heart : MonoBehaviour {
     private Rigidbody _heartRigidBody;
 
     private bool _isThrown = false;
+
+    public bool isThrown
+    {
+        get { return _isThrown; }
+        private set { }
+    }
 	
 	private RigidbodyConstraints constraints = RigidbodyConstraints.FreezePositionZ | RigidbodyConstraints.FreezeRotationX |
 		RigidbodyConstraints.FreezeRotationY;
 
     const float TAP_TIMER = 0.4f;
     const float BEAT_TIMER = 0.1f;
+
+    private const string SPIKE_TAG = "Spike";
+    private const string JUNK_TAG = "Slower";
 	
 	/// <summary>
 	/// The splatter prefab.
@@ -112,7 +121,30 @@ public class Heart : MonoBehaviour {
 		Splat();
         canBeat = true;
     }
-	
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == SPIKE_TAG)
+        {
+            _heartRigidBody.velocity *= 0.0f;
+            _heartRigidBody.useGravity = false;
+        }
+
+        else if (other.tag == JUNK_TAG)
+        {
+            _heartRigidBody.velocity *= .25f;
+        }
+
+    }
+
+    void OnTriggerExit(Collider other)
+    {
+        if (other.tag == SPIKE_TAG)
+        {
+            _heartRigidBody.useGravity = true;
+        }
+    }
+
 	void Splat()
 	{
 		Rigidbody temp = (Rigidbody) Instantiate(splatterPrefab, transform.position, Quaternion.identity);
