@@ -46,7 +46,7 @@ public class TouchTest : MonoBehaviour {
 	}
 	
 	// Draw some debug stuff
-	void OnGUI() 
+	/*void OnGUI() 
 	{
 		GUI.Label(new Rect(50,50, 100, 100),""+ ArTouchInput.GetInstance().GetNumTouches());
 		if (trackedTouchId != ArTouch.NULL_ID)
@@ -56,7 +56,7 @@ public class TouchTest : MonoBehaviour {
 			// but the GUI has it in the top-left, so we've got to do a conversion on the y axis.
 			GUI.Box(new Rect(drawPosition.x - 25, Screen.height - (drawPosition.y+25), 50, 50), "Butts!");
 		}
-	}
+	}*/
 	
 	#region Touch Callbacks
 	void TouchDown(ref ArTouch touch)
