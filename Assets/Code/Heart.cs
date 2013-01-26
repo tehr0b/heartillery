@@ -19,6 +19,9 @@ public class Heart : MonoBehaviour {
 
     const float TAP_TIMER = 0.4f;
     const float BEAT_TIMER = 0.6f;
+
+    private const string SPIKE_TAG = "Spike";
+    private const string JUNK_TAG = "Slower";
 	
 	/// <summary>
 	/// The splatter prefab.
@@ -112,7 +115,30 @@ public class Heart : MonoBehaviour {
         StartCoroutine(TapTimer(TAP_TIMER));
 		Splat();
     }
-	
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == SPIKE_TAG)
+        {
+            _heartRigidBody.velocity *= 0.0f;
+            _heartRigidBody.useGravity = false;
+        }
+
+        else if (other.tag == JUNK_TAG)
+        {
+            _heartRigidBody.velocity *= .25f;
+        }
+
+    }
+
+    void OnTriggerExit(Collider other)
+    {
+        if (other.tag == SPIKE_TAG)
+        {
+            _heartRigidBody.useGravity = true;
+        }
+    }
+
 	void Splat()
 	{
 		Rigidbody temp = (Rigidbody) Instantiate(splatterPrefab, transform.position, Quaternion.identity);
