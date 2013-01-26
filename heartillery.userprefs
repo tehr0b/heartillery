@@ -2,12 +2,13 @@
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Code\Obstacles\RotateAlternate.cs">
     <Files>
+      <File FileName="Assets\Code\Splatter.cs" Line="1" Column="1" />
       <File FileName="Assets\Code\Heart.cs" Line="1" Column="1" />
       <File FileName="Assets\Code\Obstacles\MoveVert.cs" Line="1" Column="1" />
-      <File FileName="Assets\Code\Obstacles\MoveHorz.cs" Line="18" Column="18" />
-      <File FileName="Assets\Code\Obstacles\Shrink.cs" Line="4" Column="38" />
-      <File FileName="Assets\Code\Obstacles\Rotate.cs" Line="15" Column="18" />
-      <File FileName="Assets\Code\Obstacles\DiamondMove.cs" Line="37" Column="62" />
+      <File FileName="Assets\Code\Obstacles\MoveHorz.cs" Line="1" Column="1" />
+      <File FileName="Assets\Code\Obstacles\Shrink.cs" Line="1" Column="1" />
+      <File FileName="Assets\Code\Obstacles\Rotate.cs" Line="1" Column="1" />
+      <File FileName="Assets\Code\Obstacles\DiamondMove.cs" Line="1" Column="1" />
       <File FileName="Assets\Code\Obstacles\RotateAlternate.cs" Line="17" Column="36" />
     </Files>
   </MonoDevelop.Ide.Workbench>

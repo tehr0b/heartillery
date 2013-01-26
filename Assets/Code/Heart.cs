@@ -15,7 +15,13 @@ public class Heart : MonoBehaviour {
 		RigidbodyConstraints.FreezeRotationY;
 
     const float TAP_TIMER = 0.20f;
-
+	
+	/// <summary>
+	/// The splatter prefab.
+	/// </summary>
+	public Rigidbody splatterPrefab;
+	public float splatForce = 20f;
+	
     void OnEnable()
     {
         ArTouchInput.OnTap += TouchTap;
@@ -39,6 +45,8 @@ public class Heart : MonoBehaviour {
 		if (isThrown && Input.touchCount > 0){
 			Beat();	
 		}
+		
+		Splat();
 
 	}
 	
@@ -91,5 +99,12 @@ public class Heart : MonoBehaviour {
         canTap = true;
         StartCoroutine(TapTimer(TAP_TIMER));
     }
+	
+	void Splat()
+	{
+		Rigidbody temp = (Rigidbody) Instantiate(splatterPrefab, transform.position, Quaternion.identity);
+		Vector3 dir = new Vector3(Random.value * 2 - 1, Random.value * 2 - 1,  0);
+		temp.AddForce(Vector3.zero);
+	}
 
 }
