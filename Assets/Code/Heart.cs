@@ -48,6 +48,7 @@ public class Heart : MonoBehaviour {
 		if (canBeat&&(isThrown && ((Input.touchCount > 0)||(Input.GetMouseButtonDown(0))))){
 			Beat();	
 		}
+		Splat();
 
 	}
 	
@@ -116,7 +117,7 @@ public class Heart : MonoBehaviour {
 	{
 		Rigidbody temp = (Rigidbody) Instantiate(splatterPrefab, transform.position, Quaternion.identity);
 		Vector3 dir = new Vector3(Random.value * 2 - 1, Random.value * 2 - 1,  0);
-		temp.AddForce(Vector3.zero);
+		temp.AddForce(dir.normalized * splatForce);
 	}
 
 }
