@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
+[RequireComponent (typeof(DeathCondition))]
 public class Heart : MonoBehaviour {
 
     int trackedTouchId = ArTouch.NULL_ID;
