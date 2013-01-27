@@ -10,6 +10,8 @@ public class Heart : MonoBehaviour {
 	private bool canBeat = true;
 	public Vector3 beatSpeed = new Vector3(2,3,0);
 	
+	public float bleedPerSecond = 10f;
+	
     private Rigidbody _heartRigidBody;
 
     private bool _isThrown = false;
@@ -33,7 +35,10 @@ public class Heart : MonoBehaviour {
 	/// The splatter prefab.
 	/// </summary>
 	public Rigidbody splatterPrefab;
-	public float splatForce = 5f;
+	public float splatForce = 2f;
+	
+	public int beatSplats = 20;
+	public int collisionSplats = 50;
 	
     void OnEnable()
     {
@@ -49,6 +54,7 @@ public class Heart : MonoBehaviour {
 	void Start () {
         _heartRigidBody = rigidbody;
         _heartRigidBody.constraints = RigidbodyConstraints.FreezeAll;
+		StartCoroutine(Bleed());
 	}
 	
 	// Update is called once per frame
@@ -57,7 +63,7 @@ public class Heart : MonoBehaviour {
 		if (canBeat&&(isThrown && ((Input.touchCount > 0)||(Input.GetMouseButtonDown(0))))){
 			Beat();	
 		}
-
+		//Splat ();
 	}
 	
 	public void Throw()
@@ -69,6 +75,15 @@ public class Heart : MonoBehaviour {
 	void Beat()
 	{
 		rigidbody.AddForce(beatSpeed.normalized * splatForce);
+		Splat(beatSplats);
+	}
+	
+	IEnumerator Bleed()
+	{
+		Splat();
+		Debug.Log("bleeding again in " + (60f/bleedPerSecond));
+		yield return new WaitForSeconds(1f / bleedPerSecond);
+		StartCoroutine(Bleed());
 	}
 
     IEnumerator TapTimer(float timeLeft){
@@ -118,7 +133,7 @@ public class Heart : MonoBehaviour {
     {
         canTap = true;
         StartCoroutine(TapTimer(TAP_TIMER));
-		Splat();
+		Splat(collisionSplats);
         canBeat = true;
     }
 
@@ -145,11 +160,19 @@ public class Heart : MonoBehaviour {
         }
     }
 
-	void Splat()
+	public void Splat()
 	{
 		Rigidbody temp = (Rigidbody) Instantiate(splatterPrefab, transform.position, Quaternion.identity);
 		Vector3 dir = new Vector3(Random.value * 2 - 1, Random.value * 2 - 1,  0);
-		temp.AddForce(dir.normalized * splatForce);
+		temp.AddForce(dir.normalized * (splatForce * Random.value));
 	}
-
+	
+	public void Splat(int num)
+	{
+		for (int i = 0; i < num; i++) 
+		{
+			Splat();
+		}
+	}
+	
 }
