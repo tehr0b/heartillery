@@ -9,7 +9,7 @@ public class DeathCondition : MonoBehaviour {
     public GameObject _gui;
     private bool zoom = false;
     private bool zoomed = false;
-    private bool launched = false;
+    public bool launched = false;
     private float originalCameraSize;
     private float zoomCameraSize = .2f;
     private const float ZOOM_INCREMENT = .1f;
@@ -70,11 +70,11 @@ public class DeathCondition : MonoBehaviour {
 
         }
 
-	    if (heart.isThrown &&
+	    if (heart.isThrown && !chargeDefibrilator &&
             heart.rigidbody.velocity.magnitude < deathTriggerVelocity &&
             transform.position.y < deathTriggerHeight)
         {
-            if (zoomed) _gui.GetComponent<MakeText>().message = "NOT TODAY!";
+            zoom = true;
             StartCoroutine(WaitForDeath());
 
             if (numLives <= 0 && launched && !zoomed)
@@ -83,19 +83,27 @@ public class DeathCondition : MonoBehaviour {
                 BeginDeath();
             }
 
-        }
+        }else if (!chargeDefibrilator){
+		zoom = false;
+		}
 	}
 
     IEnumerator WaitForDeath()
     {
         yield return new WaitForSeconds(deathTriggerTimer);
 
-
-        if (numLives > 0)
+		if (heart.isThrown && !chargeDefibrilator &&
+            heart.rigidbody.velocity.magnitude < deathTriggerVelocity &&
+            transform.position.y < deathTriggerHeight)
         {
-            Defibrilate();
-            numLives--;
-        }
+        	if (numLives > 0)
+        	{
+       		     Defibrilate();
+    	    }else
+			{
+				BeginDeath();
+			}
+		}
 
     }
 
@@ -105,16 +113,24 @@ public class DeathCondition : MonoBehaviour {
         GetComponent<Heart>().Beat(defibrilatorClicks);
         _gui.GetComponent<MakeText>().message = "";
         zoom = false;
-        chargeDefibrilator = false;
         launched = true;
+		StartCoroutine(EndLaunch());
     }
-
+	
+	IEnumerator EndLaunch()
+	{
+        yield return new WaitForSeconds(deathTriggerTimer);
+        chargeDefibrilator = false;
+		launched = false;
+	}
+	
     void Defibrilate()
     {
         Debug.Log("NOT TODAY");
-        
-        zoom = true;
+       	numLives--;
+		
         chargeDefibrilator = true;
+        _gui.GetComponent<MakeText>().message = "NOT TODAY!";
 
         StartCoroutine(AccumulateClicks());
 
