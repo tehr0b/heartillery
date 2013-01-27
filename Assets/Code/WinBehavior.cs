@@ -24,8 +24,10 @@ public class WinBehavior : MonoBehaviour {
         if (other.tag == HEART_TAG)
         {
             _gui.GetComponent<MakeText>().message = "You Win!";
-			other.GetComponent<Heart>().Splat(100);
-			other.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+			Heart heart = other.GetComponent<Heart>();
+			heart.Splat(100);
+			heart.gameObject.SetActive(false);
+			(FindObjectOfType(typeof(UITimer)) as UITimer).running = false;
         }
     }
 
