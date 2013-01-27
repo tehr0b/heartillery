@@ -7,11 +7,9 @@ public class Doctor : MonoBehaviour {
 	tk2dAnimatedSprite anim;
 	public Heart heart;
 	
-	
-	
 	public Camera camera;
 	
-	public float throwForce = 300f;
+	public float throwForce = 150f;
 	
 	bool hasThrown = false;
 	
@@ -30,6 +28,7 @@ public class Doctor : MonoBehaviour {
 	{
 		anim = GetComponent<tk2dAnimatedSprite>();
 		camera = FindObjectOfType(typeof(Camera)) as Camera;
+		heart = FindObjectOfType(typeof(Heart)) as Heart;
 	}
 	
 	// Update is called once per frame
@@ -49,6 +48,7 @@ public class Doctor : MonoBehaviour {
 				0);
 			ThrowAt(point);
 			Debug.Log(point);
+			(FindObjectOfType(typeof(UITimer)) as UITimer).running = true;
 		}
 	}
 	
