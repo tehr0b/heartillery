@@ -59,9 +59,13 @@ public class DeathCondition : MonoBehaviour {
         else
         {
             if (Camera.main.orthographicSize < originalCameraSize)
+            {              
+                Camera.main.orthographicSize += ZOOM_INCREMENT;
+            }
+
+            if (Camera.main.orthographicSize >= 1.8f) 
             {
                 zoomed = false;
-                Camera.main.orthographicSize += ZOOM_INCREMENT;
             }
 
         }
@@ -73,8 +77,9 @@ public class DeathCondition : MonoBehaviour {
             if (zoomed) _gui.GetComponent<MakeText>().message = "NOT TODAY!";
             StartCoroutine(WaitForDeath());
 
-            if (numLives <= 0 && launched)
+            if (numLives <= 0 && launched && !zoomed)
             {
+                _gui.GetComponent<MakeText>().message = "";
                 BeginDeath();
             }
 
