@@ -141,6 +141,7 @@ public class DeathCondition : MonoBehaviour {
         CreateSplatter();
         //Debug.Log("YOU'VE DIED. THIS IS WHY YOU'RE HOMELESS ADAM.");
         Object.Destroy(gameObject);
+        Application.LoadLevel(Application.loadedLevelName);
     }
 
     void CreateSplatter()
