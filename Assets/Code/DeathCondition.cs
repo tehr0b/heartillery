@@ -9,6 +9,7 @@ public class DeathCondition : MonoBehaviour {
     public GameObject _gui;
     private bool zoom = false;
     private bool zoomed = false;
+    private bool launched = false;
     private float originalCameraSize;
     private float zoomCameraSize = .2f;
     private const float ZOOM_INCREMENT = .1f;
@@ -39,6 +40,11 @@ public class DeathCondition : MonoBehaviour {
         //    (dcRigidbody.velocity.magnitude < deathTriggerVelocity) + ", con3: " +
         //    (transform.position.y < deathTriggerHeight));
 
+        if (numLives <= 0 && launched)
+        {
+            zoom = false;
+        }
+
         if (zoom)
         {
             if (Camera.main.orthographicSize > zoomCameraSize)
@@ -61,27 +67,30 @@ public class DeathCondition : MonoBehaviour {
         }
 
 	    if (heart.isThrown &&
-            dcRigidbody.velocity.magnitude < deathTriggerVelocity &&
+            heart.rigidbody.velocity.magnitude < deathTriggerVelocity &&
             transform.position.y < deathTriggerHeight)
         {
             if (zoomed) _gui.GetComponent<MakeText>().message = "NOT TODAY!";
             StartCoroutine(WaitForDeath());
-            //_gui.GetComponent<MakeText>().message = "";
+
+            if (numLives <= 0 && launched)
+            {
+                BeginDeath();
+            }
+
         }
 	}
 
     IEnumerator WaitForDeath()
     {
         yield return new WaitForSeconds(deathTriggerTimer);
+
+
         if (numLives > 0)
         {
-            numLives--;
-            
             Defibrilate();
-            
+            numLives--;
         }
-
-        
 
     }
 
@@ -92,6 +101,7 @@ public class DeathCondition : MonoBehaviour {
         _gui.GetComponent<MakeText>().message = "";
         zoom = false;
         chargeDefibrilator = false;
+        launched = true;
     }
 
     void Defibrilate()
@@ -102,6 +112,7 @@ public class DeathCondition : MonoBehaviour {
         chargeDefibrilator = true;
 
         StartCoroutine(AccumulateClicks());
+
     }
 
     void BeginDeath()
