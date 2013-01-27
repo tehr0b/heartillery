@@ -8,6 +8,7 @@ public class Heart : MonoBehaviour {
 	//public bool isThrown = false;
     private bool canTap = false;
 	private bool canBeat = true;
+	private bool munchMUNCH = false;
 	public Vector3 beatSpeed = new Vector3(1,3,0);
 	
 	public ParticleSystem glassGo;
@@ -108,6 +109,8 @@ public class Heart : MonoBehaviour {
             value.Normalize();
             value *= Mattsgorgeoushair;
         }
+		munchMUNCH = false;
+		_heartRigidBody.transform.parent = null;
         rigidbody.velocity += value;
             
     }
@@ -148,7 +151,7 @@ public class Heart : MonoBehaviour {
             GetComponent<tk2dAnimatedSprite>().ClipFps += 2;
             Debug.Log("Get Clicks: " + GetComponent<DeathCondition>().defibrilatorClicks);
         }
-		else if (canBeat)
+		else if ((canBeat)&&(!munchMUNCH))
 		{
 			Vector3 point = new Vector3(
 				(Input.mousePosition.x - (Screen.width/2)) / Screen.width,
@@ -183,6 +186,7 @@ public class Heart : MonoBehaviour {
             _heartRigidBody.useGravity = false;
 			_heartRigidBody.transform.parent = other.transform;
         	canBeat = false;
+			munchMUNCH = true;
         }
 
         else if (other.tag == JUNK_TAG)
@@ -208,6 +212,7 @@ public class Heart : MonoBehaviour {
         {
             _heartRigidBody.useGravity = true;
 			_heartRigidBody.transform.parent = null;
+			munchMUNCH = false;
         }
     }
 

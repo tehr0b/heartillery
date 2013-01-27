@@ -110,11 +110,11 @@ public class DeathCondition : MonoBehaviour {
 		{
        	numLives--;
 		}
+		gameObject.transform.parent = null;
         GetComponent<Heart>().Beat(defibrilatorClicks);
         _gui.GetComponent<MakeText>().message = "";
         zoom = false;
         launched = true;
-		gameObject.transform.parent = null;
 		StartCoroutine(EndLaunch());
     }
 	
