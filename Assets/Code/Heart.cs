@@ -136,6 +136,7 @@ public class Heart : MonoBehaviour {
         if (GetComponent<DeathCondition>().chargeDefibrilator)
         {
             GetComponent<DeathCondition>().defibrilatorClicks += 1;
+            GetComponent<tk2dAnimatedSprite>().ClipFps += 2;
             Debug.Log("Get Clicks: " + GetComponent<DeathCondition>().defibrilatorClicks);
         }
 
