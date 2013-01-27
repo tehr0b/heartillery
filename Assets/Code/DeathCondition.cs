@@ -138,11 +138,17 @@ public class DeathCondition : MonoBehaviour {
 
     void BeginDeath()
     {
-        CreateSplatter();
-        //Debug.Log("YOU'VE DIED. THIS IS WHY YOU'RE HOMELESS ADAM.");
-        Object.Destroy(gameObject);
-        Application.LoadLevel(Application.loadedLevelName);
+        CreateSplatter();;
+		StartCoroutine(EndDeath());
     }
+	
+	IEnumerator EndDeath()
+    {
+        yield return new WaitForSeconds(2);
+        //Debug.Log("YOU'VE DIED. THIS IS WHY YOU'RE HOMELESS ADAM.")
+        Object.Destroy(gameObject);
+		Application.LoadLevel(Application.loadedLevelName);
+	}
 
     void CreateSplatter()
     {

@@ -111,6 +111,7 @@ public class Heart : MonoBehaviour {
         }
 		munchMUNCH = false;
 		_heartRigidBody.transform.parent = null;
+        _heartRigidBody.useGravity = true;
         rigidbody.velocity += value;
             
     }
@@ -193,6 +194,7 @@ public class Heart : MonoBehaviour {
         {
         	 canBeat = false;
             _heartRigidBody.velocity *= .25f;
+            _heartRigidBody.useGravity = true;
         }
 		else if (other.tag == GLASS_TAG)
 		{
