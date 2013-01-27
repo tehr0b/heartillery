@@ -28,6 +28,7 @@ public class WinBehavior : MonoBehaviour {
 			heart.Splat(100);
 			heart.gameObject.SetActive(false);
 			(FindObjectOfType(typeof(UITimer)) as UITimer).running = false;
+			(FindObjectOfType(typeof(Ali)) as Ali).DoCheer();
         }
     }
 
