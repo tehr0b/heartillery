@@ -9,7 +9,7 @@ public class DeathCondition : MonoBehaviour {
     public GameObject _gui;
     private bool zoom = false;
     private bool zoomed = false;
-    private bool launched = false;
+    public bool launched = false;
     private float originalCameraSize;
     private float zoomCameraSize = .2f;
     private const float ZOOM_INCREMENT = .1f;

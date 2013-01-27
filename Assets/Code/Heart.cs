@@ -163,7 +163,7 @@ public class Heart : MonoBehaviour {
 
     void OnTriggerEnter(Collider other)
     {
-        if ((other.tag == SPIKE_TAG)&&(_heartRigidBody.useGravity))
+        if ((other.tag == SPIKE_TAG)&&(_heartRigidBody.useGravity)&&(!GetComponent<DeathCondition>().launched))
         {
             _heartRigidBody.velocity *= 0.0f;
             _heartRigidBody.angularVelocity *= 0.0f;
