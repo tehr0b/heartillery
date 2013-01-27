@@ -5,7 +5,7 @@ public class DeathCondition : MonoBehaviour {
 
     private Heart heart;
     private Rigidbody dcRigidbody;
-    private Transform transform;
+    //private Transform transform;
     public GameObject _gui;
     private bool zoom = false;
     private bool zoomed = false;
@@ -25,11 +25,14 @@ public class DeathCondition : MonoBehaviour {
     public int numLives = 1; // "lives"
     public Vector3[] splatvecs;
 
+    public GameObject notTodayPrefab;
+    public GameObject youLosePrefab;
+
 	// Use this for initialization
 	void Start () {
         heart = (Heart)GetComponent<Heart>();
         dcRigidbody = (Rigidbody)GetComponent<Rigidbody>();
-        transform = (Transform)GetComponent<Transform>();
+        //transform = (Transform)GetComponent<Transform>();
         originalCameraSize = Camera.main.orthographicSize;
         _gui = GameObject.Find(GUI_NAME);
 	}
@@ -130,7 +133,8 @@ public class DeathCondition : MonoBehaviour {
         Debug.Log("NOT TODAY");
 		
         chargeDefibrilator = true;
-        _gui.GetComponent<MakeText>().message = "NOT TODAY!";
+        Vector3 tempVec = new Vector3(transform.position.x, transform.position.y + 0.1f);
+        Instantiate(notTodayPrefab, tempVec, Quaternion.identity);
 
         StartCoroutine(AccumulateClicks());
 
@@ -139,8 +143,15 @@ public class DeathCondition : MonoBehaviour {
     void BeginDeath()
     {
         CreateSplatter();
-        //Debug.Log("YOU'VE DIED. THIS IS WHY YOU'RE HOMELESS ADAM.");
+        Vector3 tempVec = new Vector3(transform.position.x, transform.position.y + 0.1f);
+        Instantiate(youLosePrefab, tempVec, Quaternion.identity);
+        StartCoroutine(DieAndRestart());
         Object.Destroy(gameObject);
+    }
+
+    static IEnumerator DieAndRestart()
+    {
+        yield return new WaitForSeconds(2.9f);
         Application.LoadLevel(Application.loadedLevelName);
     }
 
