@@ -55,7 +55,6 @@ public class DeathCondition : MonoBehaviour {
             if (Camera.main.orthographicSize < .3f) zoomed = true;
 
         }
-
         else
         {
             if (Camera.main.orthographicSize < originalCameraSize)
@@ -96,13 +95,7 @@ public class DeathCondition : MonoBehaviour {
             heart.rigidbody.velocity.magnitude < deathTriggerVelocity &&
             transform.position.y < deathTriggerHeight)
         {
-        	if (numLives > 0)
-        	{
-       		     Defibrilate();
-    	    }else
-			{
-				BeginDeath();
-			}
+        	Defibrilate();
 		}
 
     }
@@ -110,6 +103,13 @@ public class DeathCondition : MonoBehaviour {
     IEnumerator AccumulateClicks()
     {
         yield return new WaitForSeconds(deathTriggerTimer * 2);
+		if (numLives <= 0)
+        {
+			BeginDeath();
+    	}else
+		{
+       	numLives--;
+		}
         GetComponent<Heart>().Beat(defibrilatorClicks);
         _gui.GetComponent<MakeText>().message = "";
         zoom = false;
@@ -127,7 +127,6 @@ public class DeathCondition : MonoBehaviour {
     void Defibrilate()
     {
         Debug.Log("NOT TODAY");
-       	numLives--;
 		
         chargeDefibrilator = true;
         _gui.GetComponent<MakeText>().message = "NOT TODAY!";

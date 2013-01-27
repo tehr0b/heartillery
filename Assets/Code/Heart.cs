@@ -10,7 +10,7 @@ public class Heart : MonoBehaviour {
 	private bool canBeat = true;
 	public Vector3 beatSpeed = new Vector3(1,3,0);
 	
-	public float bleedPerSecond = 10f;
+	public float bleedPerSecond = 5f;
 	
     private Rigidbody _heartRigidBody;
 
@@ -30,12 +30,15 @@ public class Heart : MonoBehaviour {
 
     private const string SPIKE_TAG = "Spike";
     private const string JUNK_TAG = "Slower";
+	//You know what it does to one's heart ;)
+	private const int Mattsgorgeoushair = 10;
 	
 	/// <summary>
 	/// The splatter prefab.
 	/// </summary>
 	public Rigidbody splatterPrefab;
 	public float splatForce = 2f;
+	public float beatForce = 20f;
 	
 	public int beatSplats = 20;
 	public int collisionSplats = 50;
@@ -59,10 +62,13 @@ public class Heart : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		if ((canBeat)||(GetComponent<DeathCondition>().chargeDefibrilator))
+		{
         ArTouchInput.GetInstance().Update();	
-		if (canBeat&&(isThrown && ((Input.touchCount > 0)||(Input.GetMouseButtonDown(0))))){
-			Beat();	
 		}
+		//if (canBeat&&(isThrown && ((Input.touchCount > 0)||(Input.GetMouseButtonDown(0))))){
+		//	Beat();	
+		//}
 		//Splat ();
 	}
 	
@@ -72,12 +78,12 @@ public class Heart : MonoBehaviour {
 		_heartRigidBody.constraints = constraints;
 	}
 	
-	void Beat()
+	void Beat(Vector3 point)
 	{
 
         if (!GetComponent<DeathCondition>().chargeDefibrilator)
         {
-            rigidbody.AddForce(beatSpeed.normalized * splatForce);
+		    rigidbody.AddForce(point.normalized * splatForce);
 		    Splat(beatSplats);
         }
 
@@ -94,10 +100,10 @@ public class Heart : MonoBehaviour {
     public void Beat(int charge)
     {
         Vector3 value = beatSpeed * charge;
-        if (value.magnitude > 20)
+        if (value.magnitude > Mattsgorgeoushair)
         {
             value.Normalize();
-            value *= 20;
+            value *= Mattsgorgeoushair;
         }
         rigidbody.velocity += value;
             
@@ -142,6 +148,11 @@ public class Heart : MonoBehaviour {
 
 		else if (canBeat)
 		{
+			Vector3 point = new Vector3(
+				(Input.mousePosition.x - (Screen.width/2)) / Screen.width,
+				(Input.mousePosition.y - (Screen.height/2)) / Screen.height,
+				0);
+			Beat(point);
         	rigidbody.velocity+=beatSpeed;
 			canBeat = false;
         	if (canTap)
@@ -155,10 +166,10 @@ public class Heart : MonoBehaviour {
 
     void OnCollisionEnter(Collision collision)
     {
+        canBeat = true;
         canTap = true;
         StartCoroutine(TapTimer(TAP_TIMER));
 		Splat(collisionSplats);
-        canBeat = true;
     }
 
     void OnTriggerEnter(Collider other)
@@ -169,10 +180,12 @@ public class Heart : MonoBehaviour {
             _heartRigidBody.angularVelocity *= 0.0f;
             _heartRigidBody.useGravity = false;
 			_heartRigidBody.transform.parent = other.transform;
+        	canBeat = false;
         }
 
         else if (other.tag == JUNK_TAG)
         {
+        	 canBeat = false;
             _heartRigidBody.velocity *= .25f;
         }
 
