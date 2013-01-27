@@ -10,6 +10,8 @@ public class Heart : MonoBehaviour {
 	private bool canBeat = true;
 	public Vector3 beatSpeed = new Vector3(1,3,0);
 	
+	public ParticleSystem glassGo;
+	
 	public float bleedPerSecond = 5f;
 	
     private Rigidbody _heartRigidBody;
@@ -30,6 +32,7 @@ public class Heart : MonoBehaviour {
 
     private const string SPIKE_TAG = "Spike";
     private const string JUNK_TAG = "Slower";
+    private const string GLASS_TAG = "Glass";
 	//You know what it does to one's heart ;)
 	private const int Mattsgorgeoushair = 10;
 	
@@ -187,9 +190,18 @@ public class Heart : MonoBehaviour {
         	 canBeat = false;
             _heartRigidBody.velocity *= .25f;
         }
+		else if (other.tag == GLASS_TAG)
+		{
+			StartCoroutine(Shatter());
+		}
 
     }
-
+	
+	IEnumerator Shatter(){
+		glassGo.Emit(100);
+		yield return new WaitForSeconds(0.1f);
+	}
+	
     void OnTriggerExit(Collider other)
     {
         if (other.tag == SPIKE_TAG)
