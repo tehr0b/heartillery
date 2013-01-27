@@ -1,6 +1,15 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Code\DeathCondition.cs">
+    <Files>
+      <File FileName="Assets\Code\Heart.cs" Line="14" Column="28" />
+      <File FileName="Assets\Code\Obstacles\Ali.cs" Line="1" Column="1" />
+      <File FileName="Assets\Code\DeathCondition.cs" Line="130" Column="41" />
+      <File FileName="Assets\Code\WinBehavior.cs" Line="1" Column="1" />
+      <File FileName="Assets\Code\Obstacles\JumpWhenHeartNear.cs" Line="1" Column="1" />
+      <File FileName="Assets\Code\Splatter.cs" Line="15" Column="69" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
