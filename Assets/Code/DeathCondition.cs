@@ -76,12 +76,14 @@ public class DeathCondition : MonoBehaviour {
         if (numLives > 0)
         {
             numLives--;
-            
-            Defibrilate();
-            
-        }
 
-        
+            Defibrilate();
+
+        }
+        else
+        {
+            BeginDeath();
+        }
 
     }
 
