@@ -1,16 +1,6 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\MoreTextButton.cs">
-    <Files>
-      <File FileName="Assets\Code\Obstacles\Ali.cs" Line="1" Column="1" />
-      <File FileName="Assets\Code\Heart.cs" Line="100" Column="56" />
-      <File FileName="Assets\Code\DeathCondition.cs" Line="137" Column="6" />
-      <File FileName="Assets\Code\WinBehavior.cs" Line="40" Column="37" />
-      <File FileName="Assets\Code\Obstacles\JumpWhenHeartNear.cs" Line="1" Column="1" />
-      <File FileName="Assets\TutorialPage2Text.cs" Line="8" Column="28" />
-      <File FileName="Assets\MoreTextButton.cs" Line="19" Column="37" />
-    </Files>
-  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workbench />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>

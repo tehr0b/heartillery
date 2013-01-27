@@ -127,6 +127,7 @@ public class DeathCondition : MonoBehaviour {
 	
     void Defibrilate()
     {
+		heart.audio.PlayOneShot(heart.deathSnd);
         Debug.Log("NOT TODAY");
 		
         chargeDefibrilator = true;
@@ -144,7 +145,7 @@ public class DeathCondition : MonoBehaviour {
 	
 	IEnumerator EndDeath()
     {
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(.5f);
         //Debug.Log("YOU'VE DIED. THIS IS WHY YOU'RE HOMELESS ADAM.")
         Object.Destroy(gameObject);
 		Application.LoadLevel(Application.loadedLevelName);
