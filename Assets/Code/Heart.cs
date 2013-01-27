@@ -165,11 +165,11 @@ public class Heart : MonoBehaviour {
 
 	public void Splat()
 	{
-		/*
+		
 		Rigidbody temp = (Rigidbody) Instantiate(splatterPrefab, transform.position, Quaternion.identity);
 		Vector3 dir = new Vector3(Random.value * 2 - 1, Random.value * 2 - 1,  0);
 		temp.AddForce(dir.normalized * (splatForce * Random.value));
-		*/
+		
 	}
 	
 	public void Splat(int num)

@@ -28,6 +28,7 @@ public class Doctor : MonoBehaviour {
 	{
 		anim = GetComponent<tk2dAnimatedSprite>();
 		camera = FindObjectOfType(typeof(Camera)) as Camera;
+		heart = FindObjectOfType(typeof(Heart)) as Heart;
 	}
 	
 	// Update is called once per frame
