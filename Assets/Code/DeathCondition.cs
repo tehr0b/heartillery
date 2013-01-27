@@ -147,12 +147,13 @@ public class DeathCondition : MonoBehaviour {
         Vector3 tempVec = new Vector3(transform.position.x, transform.position.y + 0.1f);
         Instantiate(youLosePrefab, tempVec, Quaternion.identity);
         StartCoroutine(DieAndRestart());
-        Object.Destroy(gameObject);
+        GetComponent<MeshRenderer>().enabled = false;
     }
 
-    static IEnumerator DieAndRestart()
+    IEnumerator DieAndRestart()
     {
         yield return new WaitForSeconds(2.9f);
+        Object.Destroy(gameObject);
         Application.LoadLevel(Application.loadedLevelName);
     }
 
