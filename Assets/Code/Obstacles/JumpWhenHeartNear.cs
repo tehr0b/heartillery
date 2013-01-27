@@ -13,7 +13,7 @@ public class JumpWhenHeartNear : MonoBehaviour {
 	public float interval = 0.4f;
 	
 	//Welcome to the JAM!
-	private bool NBAJAMZ2013;
+	public bool NBAJAMZ2013;
 	
 	public int triggerdist = 2;
 	
