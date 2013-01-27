@@ -8,7 +8,7 @@ public class Heart : MonoBehaviour {
 	//public bool isThrown = false;
     private bool canTap = false;
 	private bool canBeat = true;
-	public Vector3 beatSpeed = new Vector3(2,3,0);
+	public Vector3 beatSpeed = new Vector3(1,3,0);
 	
 	public float bleedPerSecond = 10f;
 	

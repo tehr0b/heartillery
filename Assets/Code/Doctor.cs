@@ -11,7 +11,7 @@ public class Doctor : MonoBehaviour {
 	
 	public Camera camera;
 	
-	public float throwForce = 300f;
+	public float throwForce = 150f;
 	
 	bool hasThrown = false;
 	
