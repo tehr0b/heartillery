@@ -130,6 +130,7 @@ public class DeathCondition : MonoBehaviour {
 	
     void Defibrilate()
     {
+		heart.audio.PlayOneShot(heart.deathSnd);
         Debug.Log("NOT TODAY");
 		
         chargeDefibrilator = true;

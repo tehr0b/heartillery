@@ -11,6 +11,13 @@ public class Heart : MonoBehaviour {
 	private bool munchMUNCH = false;
 	public Vector3 beatSpeed = new Vector3(1,3,0);
 	
+	public AudioClip bounceSnd;
+	
+	
+	public AudioClip deathSnd;
+	
+	
+	
 	public ParticleSystem glassGo;
 	
 	public float bleedPerSecond = 5f;
@@ -111,6 +118,7 @@ public class Heart : MonoBehaviour {
         }
 		munchMUNCH = false;
 		_heartRigidBody.transform.parent = null;
+        _heartRigidBody.useGravity = true;
         rigidbody.velocity += value;
             
     }
@@ -193,6 +201,7 @@ public class Heart : MonoBehaviour {
         {
         	 canBeat = false;
             _heartRigidBody.velocity *= .25f;
+            _heartRigidBody.useGravity = true;
         }
 		else if (other.tag == GLASS_TAG)
 		{
@@ -218,7 +227,6 @@ public class Heart : MonoBehaviour {
 
 	public void Splat()
 	{
-		
 		Rigidbody temp = (Rigidbody) Instantiate(splatterPrefab, transform.position, Quaternion.identity);
 		Vector3 dir = new Vector3(Random.value * 2 - 1, Random.value * 2 - 1,  0);
 		temp.AddForce(dir.normalized * (splatForce * Random.value));
@@ -227,6 +235,7 @@ public class Heart : MonoBehaviour {
 	
 	public void Splat(int num)
 	{
+		GetComponent<AudioSource>().PlayOneShot(bounceSnd);
 		for (int i = 0; i < num; i++) 
 		{
 			Splat();
