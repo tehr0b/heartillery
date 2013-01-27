@@ -12,15 +12,14 @@ public class TutorialPage2Text : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        setTextPage2(); //test
 	}
 
-    void setTextPage2()
+    public void setTextPage2()
     {
         label.text = text2;
     }
 
-    void setTextPage3()
+    public void setTextPage3()
     {
         label.text = text3;
     }

@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class HowToPlay : MonoBehaviour {
+public class BackToMenuButton : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
@@ -10,16 +10,16 @@ public class HowToPlay : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-
+	
 	}
 
-    void LoadHTPScene()
+    void LoadMenuScene()
     {
-        Application.LoadLevel("TutorialMenu");
+        Application.LoadLevel("MainMenu");
     }
 
     public void OnClick()
     {
-        LoadHTPScene();
+        LoadMenuScene();
     }
 }

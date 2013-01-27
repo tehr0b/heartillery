@@ -17,4 +17,9 @@ public class StartGameButton : MonoBehaviour {
     {
         Application.LoadLevel("LevelMenu");
     }
+
+    public void OnClick()
+    {
+        LoadLevSelScene();
+    }
 }

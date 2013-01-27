@@ -1,7 +1,9 @@
 using UnityEngine;
 using System.Collections;
 
-public class HowToPlay : MonoBehaviour {
+public class LoadLevelButton : MonoBehaviour {
+
+    public string levelToLoad;
 
 	// Use this for initialization
 	void Start () {
@@ -10,16 +12,16 @@ public class HowToPlay : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-
+	
 	}
 
-    void LoadHTPScene()
+    void LoadLevelScene()
     {
-        Application.LoadLevel("TutorialMenu");
+        Application.LoadLevel(levelToLoad);
     }
 
     public void OnClick()
     {
-        LoadHTPScene();
+        LoadLevelScene();
     }
 }

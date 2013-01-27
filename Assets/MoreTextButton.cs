@@ -1,25 +1,26 @@
 using UnityEngine;
 using System.Collections;
 
-public class HowToPlay : MonoBehaviour {
+public class MoreTextButton : MonoBehaviour {
+    public TutorialPage2Text labelChanger;
 
 	// Use this for initialization
 	void Start () {
-	
+        
 	}
 	
 	// Update is called once per frame
 	void Update () {
-
+	    
 	}
 
-    void LoadHTPScene()
+    void MoreTextPlease()
     {
-        Application.LoadLevel("TutorialMenu");
+        labelChanger.setTextPage2();
     }
 
     public void OnClick()
     {
-        LoadHTPScene();
+        MoreTextPlease();
     }
 }
