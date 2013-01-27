@@ -29,6 +29,7 @@ public class WinBehavior : MonoBehaviour {
 			heart.gameObject.SetActive(false);
 			(FindObjectOfType(typeof(UITimer)) as UITimer).running = false;
 			(FindObjectOfType(typeof(Ali)) as Ali).DoCheer();
+			(FindObjectOfType(typeof(Ali)) as Ali).GetComponent<JumpWhenHeartNear>().speed = 0;
         }
     }
 
