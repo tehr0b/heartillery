@@ -55,7 +55,7 @@ public class DeathCondition : MonoBehaviour {
                 Camera.main.orthographicSize -= ZOOM_INCREMENT;
             }
 
-            if (Camera.main.orthographicSize < .3f) zoomed = true;
+            if (Camera.main.orthographicSize < .7f) zoomed = true;
 
         }
         else
@@ -65,7 +65,7 @@ public class DeathCondition : MonoBehaviour {
                 Camera.main.orthographicSize += ZOOM_INCREMENT;
             }
 
-            if (Camera.main.orthographicSize >= 1.8f) 
+            if (Camera.main.orthographicSize >= 1.5f) 
             {
                 zoomed = false;
             }
@@ -73,8 +73,7 @@ public class DeathCondition : MonoBehaviour {
         }
 
 	    if (heart.isThrown && !chargeDefibrilator &&
-            heart.rigidbody.velocity.magnitude < deathTriggerVelocity &&
-            transform.position.y < deathTriggerHeight)
+            heart.rigidbody.velocity.magnitude < deathTriggerVelocity)
         {
             zoom = true;
             StartCoroutine(WaitForDeath());

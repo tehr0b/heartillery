@@ -9,7 +9,7 @@ public class Heart : MonoBehaviour {
     private bool canTap = false;
 	private bool canBeat = true;
 	private bool munchMUNCH = false;
-	public Vector3 beatSpeed = new Vector3(1,3,0);
+	public Vector3 beatSpeed = new Vector3(1,4,0);
 	
 	public AudioClip bounceSnd;
 	
@@ -42,13 +42,13 @@ public class Heart : MonoBehaviour {
     private const string JUNK_TAG = "Slower";
     private const string GLASS_TAG = "Glass";
 	//You know what it does to one's heart ;)
-	private const int Mattsgorgeoushair = 10;
+	private const int Mattsgorgeoushair = 12;
 	
 	/// <summary>
 	/// The splatter prefab.
 	/// </summary>
 	public Rigidbody splatterPrefab;
-	public float splatForce = 2f;
+	public float splatForce = 8f;
 	public float beatForce = 20f;
 	
 	public int beatSplats = 20;
