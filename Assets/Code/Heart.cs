@@ -68,8 +68,25 @@ public class Heart : MonoBehaviour {
 	
 	void Beat()
 	{
-		rigidbody.AddForce(beatSpeed.normalized * splatForce);
+
+        if (!GetComponent<DeathCondition>().chargeDefibrilator)
+        {
+            rigidbody.AddForce(beatSpeed.normalized * splatForce);
+        }
+
 	}
+
+    public void Beat(int charge)
+    {
+        Vector3 value = beatSpeed * charge;
+        if (value.magnitude > 20)
+        {
+            value.Normalize();
+            value *= 20;
+        }
+        rigidbody.velocity += value;
+            
+    }
 
     IEnumerator TapTimer(float timeLeft){
         yield return new WaitForSeconds(timeLeft);
@@ -101,7 +118,13 @@ public class Heart : MonoBehaviour {
     // of collision, amplify speed. This feels better to me.
     void TouchTap(ref ArTouch touch)
     {
-		if (canBeat)
+        if (GetComponent<DeathCondition>().chargeDefibrilator)
+        {
+            GetComponent<DeathCondition>().defibrilatorClicks += 1;
+            Debug.Log("Get Clicks: " + GetComponent<DeathCondition>().defibrilatorClicks);
+        }
+
+		else if (canBeat)
 		{
         	rigidbody.velocity+=beatSpeed;
 			canBeat = false;
