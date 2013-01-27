@@ -124,10 +124,12 @@ public class Heart : MonoBehaviour {
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.tag == SPIKE_TAG)
+        if ((other.tag == SPIKE_TAG)&&(_heartRigidBody.useGravity))
         {
             _heartRigidBody.velocity *= 0.0f;
+            _heartRigidBody.angularVelocity *= 0.0f;
             _heartRigidBody.useGravity = false;
+			_heartRigidBody.transform.parent = other.transform;
         }
 
         else if (other.tag == JUNK_TAG)
@@ -142,6 +144,7 @@ public class Heart : MonoBehaviour {
         if (other.tag == SPIKE_TAG)
         {
             _heartRigidBody.useGravity = true;
+			_heartRigidBody.transform.parent = null;
         }
     }
 
