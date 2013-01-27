@@ -8,7 +8,7 @@ public class Heart : MonoBehaviour {
 	//public bool isThrown = false;
     private bool canTap = false;
 	private bool canBeat = true;
-	public Vector3 beatSpeed = new Vector3(2,3,0);
+	public Vector3 beatSpeed = new Vector3(1,3,0);
 	
 	public float bleedPerSecond = 10f;
 	
@@ -74,8 +74,13 @@ public class Heart : MonoBehaviour {
 	
 	void Beat()
 	{
-		rigidbody.AddForce(beatSpeed.normalized * splatForce);
-		Splat(beatSplats);
+
+        if (!GetComponent<DeathCondition>().chargeDefibrilator)
+        {
+            rigidbody.AddForce(beatSpeed.normalized * splatForce);
+		    Splat(beatSplats);
+        }
+
 	}
 	
 	IEnumerator Bleed()
@@ -85,6 +90,18 @@ public class Heart : MonoBehaviour {
 		yield return new WaitForSeconds(1f / bleedPerSecond);
 		StartCoroutine(Bleed());
 	}
+
+    public void Beat(int charge)
+    {
+        Vector3 value = beatSpeed * charge;
+        if (value.magnitude > 20)
+        {
+            value.Normalize();
+            value *= 20;
+        }
+        rigidbody.velocity += value;
+            
+    }
 
     IEnumerator TapTimer(float timeLeft){
         yield return new WaitForSeconds(timeLeft);
@@ -116,7 +133,14 @@ public class Heart : MonoBehaviour {
     // of collision, amplify speed. This feels better to me.
     void TouchTap(ref ArTouch touch)
     {
-		if (canBeat)
+        if (GetComponent<DeathCondition>().chargeDefibrilator)
+        {
+            GetComponent<DeathCondition>().defibrilatorClicks += 1;
+            GetComponent<tk2dAnimatedSprite>().ClipFps += 2;
+            Debug.Log("Get Clicks: " + GetComponent<DeathCondition>().defibrilatorClicks);
+        }
+
+		else if (canBeat)
 		{
         	rigidbody.velocity+=beatSpeed;
 			canBeat = false;
@@ -139,10 +163,12 @@ public class Heart : MonoBehaviour {
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.tag == SPIKE_TAG)
+        if ((other.tag == SPIKE_TAG)&&(_heartRigidBody.useGravity)&&(!GetComponent<DeathCondition>().launched))
         {
             _heartRigidBody.velocity *= 0.0f;
+            _heartRigidBody.angularVelocity *= 0.0f;
             _heartRigidBody.useGravity = false;
+			_heartRigidBody.transform.parent = other.transform;
         }
 
         else if (other.tag == JUNK_TAG)
@@ -157,16 +183,17 @@ public class Heart : MonoBehaviour {
         if (other.tag == SPIKE_TAG)
         {
             _heartRigidBody.useGravity = true;
+			_heartRigidBody.transform.parent = null;
         }
     }
 
 	public void Splat()
 	{
-		/*
+		
 		Rigidbody temp = (Rigidbody) Instantiate(splatterPrefab, transform.position, Quaternion.identity);
 		Vector3 dir = new Vector3(Random.value * 2 - 1, Random.value * 2 - 1,  0);
 		temp.AddForce(dir.normalized * (splatForce * Random.value));
-		*/
+		
 	}
 	
 	public void Splat(int num)

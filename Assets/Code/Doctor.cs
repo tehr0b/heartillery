@@ -9,7 +9,7 @@ public class Doctor : MonoBehaviour {
 	
 	public Camera camera;
 	
-	public float throwForce = 300f;
+	public float throwForce = 150f;
 	
 	bool hasThrown = false;
 	
@@ -28,6 +28,7 @@ public class Doctor : MonoBehaviour {
 	{
 		anim = GetComponent<tk2dAnimatedSprite>();
 		camera = FindObjectOfType(typeof(Camera)) as Camera;
+		heart = FindObjectOfType(typeof(Heart)) as Heart;
 	}
 	
 	// Update is called once per frame
