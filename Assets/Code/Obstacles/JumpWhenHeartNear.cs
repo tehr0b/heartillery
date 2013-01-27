@@ -15,11 +15,12 @@ public class JumpWhenHeartNear : MonoBehaviour {
 	//Welcome to the JAM!
 	public bool NBAJAMZ2013;
 	
-	public int triggerdist = 2;
+	public int triggerdist = 10;
 	
 	// Use this for initialization
 	void Start () {
 		heart = FindObjectOfType(typeof(Heart)) as Heart;
+		NBAJAMZ2013 = false;
 	}
 	
 	// Update is called once per frame
@@ -27,7 +28,7 @@ public class JumpWhenHeartNear : MonoBehaviour {
 		if (NBAJAMZ2013)
 		{
 			gameObject.transform.localPosition+= new Vector3(0,speed,0);
-		}else if (Mathf.Abs(gameObject.transform.localPosition.x - heart.transform.localPosition.x)<triggerdist)
+		}else
 		{
 			speed = 0.01f;
 			StartCoroutine(GoUp());

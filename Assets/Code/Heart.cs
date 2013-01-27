@@ -145,7 +145,6 @@ public class Heart : MonoBehaviour {
             GetComponent<tk2dAnimatedSprite>().ClipFps += 2;
             Debug.Log("Get Clicks: " + GetComponent<DeathCondition>().defibrilatorClicks);
         }
-
 		else if (canBeat)
 		{
 			Vector3 point = new Vector3(

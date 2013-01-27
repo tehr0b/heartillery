@@ -114,6 +114,7 @@ public class DeathCondition : MonoBehaviour {
         _gui.GetComponent<MakeText>().message = "";
         zoom = false;
         launched = true;
+		gameObject.transform.parent = null;
 		StartCoroutine(EndLaunch());
     }
 	
@@ -138,7 +139,7 @@ public class DeathCondition : MonoBehaviour {
     void BeginDeath()
     {
         CreateSplatter();
-        Debug.Log("YOU'VE DIED. GOOD JOB.");
+        //Debug.Log("YOU'VE DIED. THIS IS WHY YOU'RE HOMELESS ADAM.");
         Object.Destroy(gameObject);
     }
 
