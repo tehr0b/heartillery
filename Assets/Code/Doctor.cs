@@ -7,8 +7,6 @@ public class Doctor : MonoBehaviour {
 	tk2dAnimatedSprite anim;
 	public Heart heart;
 	
-	
-	
 	public Camera camera;
 	
 	public float throwForce = 150f;
@@ -49,6 +47,7 @@ public class Doctor : MonoBehaviour {
 				0);
 			ThrowAt(point);
 			Debug.Log(point);
+			(FindObjectOfType(typeof(UITimer)) as UITimer).running = true;
 		}
 	}
 	
