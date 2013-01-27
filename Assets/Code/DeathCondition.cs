@@ -9,6 +9,7 @@ public class DeathCondition : MonoBehaviour {
 
     public float deathTriggerVelocity;
     public float deathTriggerHeight;
+    public float deathTriggerTimer;
     public const int numsplats = 3; //might make modifiable
     public Vector3[] splatvecs;
 
@@ -29,9 +30,18 @@ public class DeathCondition : MonoBehaviour {
             dcRigidbody.velocity.magnitude < deathTriggerVelocity &&
             transform.position.y < deathTriggerHeight)
         {
-            BeginDeath();
+            WaitForDeath();
         }
 	}
+
+    IEnumerator WaitForDeath()
+    {
+        yield return new WaitForSeconds(deathTriggerTimer);
+        if (dcRigidbody.velocity.magnitude < deathTriggerVelocity)
+        {
+
+        }
+    }
 
     void BeginDeath()
     {
